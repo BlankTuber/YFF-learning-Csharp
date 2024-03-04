@@ -5,6 +5,19 @@ using System.Security.Cryptography.X509Certificates;
 
 namespace HelloWorld
 {
+
+    class Cat
+    {
+        public string name;
+        public int age;
+
+        public void meow()
+        {
+            Console.WriteLine("Meow name is " + name + ", meownd I am " + age + " years old.");
+        }
+    }
+
+
     class Program
     {
         static void Main(string[] args)
@@ -17,6 +30,27 @@ namespace HelloWorld
 
 
             Console.WriteLine("This is how you write to the console!");
+
+            Cat cat1 = new Cat();
+            Cat cat2 = new Cat();
+
+            cat1.name = "Heiso";
+            cat2.name = "Josef";
+
+            cat1.age = 2;
+            cat2.age = 7;
+
+            cat1.meow();
+            cat2.meow();
+
+
+
+            /*
+            Console.Write("Write a number you want to be squared: ");
+            int squarable =  Convert.ToInt16(Console.ReadLine());
+            Console.WriteLine("If you square your number " + squarable + ", the result will be: " + squared(squarable));
+            
+            meetAlien();
 
             Console.WriteLine("Write something, and then it will respond!");
             string cool = CheckForStuff();
@@ -32,10 +66,26 @@ namespace HelloWorld
             Loops();
 
             Console.WriteLine("Look at these arrays I made:");
-            ArraysAndLists();
+            ArraysAndLists();*/
 
             Console.WriteLine("Ok! Click any key to exit :>");
             Console.ReadKey();
+        }
+
+        static int squared(int a)
+        {
+            int result = a * a;
+            return result;
+        }
+
+        
+        static void meetAlien()
+        {
+            Random numGen = new Random();
+            string name = "x-" + numGen.Next(100,99999);
+            int age = numGen.Next(50, 1000);
+            Console.WriteLine("Hello! My name is " + name + ", and I am " + age + " years old.");
+            Console.WriteLine("Oh yeah, I'm an Alien! :>");
         }
 
         static string CheckForStuff()
