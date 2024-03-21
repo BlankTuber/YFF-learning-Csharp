@@ -72,7 +72,6 @@
             {
                 Console.WriteLine($"{i + 1 - startingIndex}. {Path.GetFileNameWithoutExtension(passwordFiles[i])}");
             }
-
             HandlePaging();
         }
 

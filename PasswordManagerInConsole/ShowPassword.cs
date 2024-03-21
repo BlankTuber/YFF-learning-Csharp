@@ -16,13 +16,17 @@
                 string[] parts = decryptedData.Split('\n');
                 if (parts.Length >= 3)
                 {
+                    Console.WriteLine("");
                     Console.WriteLine($"Location: {parts[0]}");
                     Console.WriteLine($"Username: {parts[1]}");
                     Console.WriteLine($"Password: {parts[2]}");
+                    Console.WriteLine("");
                 }
                 else
                 {
+                    Console.WriteLine("");
                     Console.WriteLine("Error: Password data format is incorrect.");
+                    Console.WriteLine("");
                 }
             }
             else

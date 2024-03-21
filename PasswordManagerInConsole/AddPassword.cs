@@ -37,10 +37,12 @@
 
                 if (userInput == "1" || userInput == "one" || userInput == "create" || userInput == "new")
                 {
+                    Console.Clear();
                     CreateNewPwd();
                 }
                 else if (userInput == "2" || userInput == "two" || userInput == "cancel" || userInput == "exit")
                 {
+                    Console.Clear();
                     Program.Navigator();
                 }
                 else
@@ -71,6 +73,7 @@
             if (locationInput == null || locationInput == "")
             {
                 location = "";
+                Console.Clear();
                 CreateNewPwd(true);
             }
             else
@@ -140,10 +143,12 @@
             switch (finalAnswer)
             {
                 case "1":
+                    Console.Clear();
                     SavePassword(location, username, password);
                     break;
 
                 case "2":
+                    Console.Clear();
                     CreateNewPwd();
                     break;
 
@@ -153,6 +158,7 @@
                     break;
 
                 default:
+                    Console.Clear();
                     SavePassword(location, username, password);
                     break;
             }

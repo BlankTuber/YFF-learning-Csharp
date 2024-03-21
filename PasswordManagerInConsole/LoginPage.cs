@@ -20,7 +20,7 @@ namespace PasswordManagerInConsole
                     Console.WriteLine(error);
                 }
 
-                const string fileName = "user.json";
+                const string fileName = "user.txt";
                 string filePath = Path.Combine(AppDomain.CurrentDomain.BaseDirectory, fileName);
 
                 if (!File.Exists(filePath))
@@ -80,17 +80,9 @@ namespace PasswordManagerInConsole
             string usrEncrypted = Cryption.Encrypt(usernameInput, derivedKey);
             string pwdEncrypted = Cryption.Encrypt(passwordInput, derivedKey);
 
-            // Prepare the user credentials for storage
-            var userCredentials = new Dictionary<string, string>
-    {
-        {"username", usrEncrypted},
-        {"password", pwdEncrypted},
-        {"salt", Convert.ToBase64String(saltBytes)}
-    };
+            string fileInfo = $"{usrEncrypted}\n{pwdEncrypted}\n{Convert.ToBase64String(saltBytes)}";
 
-            // Serialize and save the credentials
-            string json = JsonSerializer.Serialize(userCredentials);
-            File.WriteAllText(filePath, json);
+            File.WriteAllText(filePath, fileInfo);
 
             Console.WriteLine("User registered successfully!");
             Thread.Sleep(1000);
@@ -99,16 +91,20 @@ namespace PasswordManagerInConsole
 
         static void LogIn(string filePath)
         {
-            var encryptedData = File.ReadAllText(filePath);
-            var userData = JsonSerializer.Deserialize<Dictionary<string, string>>(encryptedData);
+            string[] lines = File.ReadAllLines(filePath);
 
-            if (userData == null)
+            if (lines.Length < 3)
             {
-                Console.WriteLine("Failed to load user data.");
-                return;
+                Console.WriteLine("Invalid user data file.");
+                Environment.Exit(0);
             }
 
-            string salt = userData["salt"];
+            string usrEncrypted = lines[0];
+            string pwdEncrypted = lines[1];
+            string saltBase64 = lines[2];
+
+
+            string salt = saltBase64;
             byte[] saltBytes = Convert.FromBase64String(salt);
 
             Console.Write("Write your username: ");
@@ -133,8 +129,8 @@ namespace PasswordManagerInConsole
             string derivedKey = Convert.ToBase64String(derivedKeyBytes);
 
             // Attempt to decrypt the username and password
-            string decryptedUsername = Cryption.Decrypt(userData["username"], derivedKey);
-            string decryptedPassword = Cryption.Decrypt(userData["password"], derivedKey);
+            string decryptedUsername = Cryption.Decrypt(usrEncrypted, derivedKey);
+            string decryptedPassword = Cryption.Decrypt(pwdEncrypted, derivedKey);
 
             if (decryptedUsername != usernameInput || decryptedPassword != passwordInput)
             {
