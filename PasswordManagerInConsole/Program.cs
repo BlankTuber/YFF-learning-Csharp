@@ -3,6 +3,7 @@
     public static class GlobalVariables
     {
         public static bool loggedin = false;
+        public static string key = "";
     }
     internal class Program
     {
@@ -37,7 +38,7 @@
                 Console.Write("not logged in.\n");
             }
 
-            Console.Write("1: Login\n2: Password List (Needs Login)\n3. Add Password (Needs Login)\n4: Exit/Close\nYou choose number...: ");
+            Console.Write("1: Login\n2: Password List (Needs Login)\n3. Add Password (Needs Login)\n4: Exit\nYou choose number...: ");
             var input = Console.ReadLine();
             string userInput;
             if (input == null)
